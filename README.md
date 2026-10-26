@@ -1,33 +1,25 @@
-# jwks server (project 2)
+# jwks server project 2
 
-python jwks server that saves its rsa private keys in a sqlite database.
+a jwks server in python. it saves the rsa private keys in a sqlite database
+instead of keeping them in memory.
 
-## files
-- main.py: starts the server
-- server.py: the /auth and jwks endpoints
-- database.py: all the sqlite code
-- keys.py: key helpers (pem and jwk stuff)
-- tests/: pytest tests
-
-## run it
-```
+## how to run
 pip install -r requirements.txt
 python main.py
-```
-the server makes `totally_not_my_privateKeys.db` in the current folder. it keeps one valid key and one expired key in there. keys stay saved after a restart.
+
+it makes totally_not_my_privateKeys.db in the folder you run it from.
+the keys stay saved if you restart the server.
 
 ## endpoints
-- `POST /auth` signs a jwt with a valid key from the db. add `?expired` to use an expired key instead. login is fake so any body works.
-- `GET /.well-known/jwks.json` shows all keys that havent expired.
+- POST /auth gives back a jwt. add ?expired to sign it with an expired key.
+- GET /.well-known/jwks.json shows the keys that havent expired yet.
 
-## sql injection
-all queries use `?` placeholders so user values are never put into the sql string.
+all the sql uses ? placeholders so theres no sql injection.
 
-## tests and lint
-```
+## tests
 python -m pytest --cov --cov-report=term-missing
-flake8
-```
 
 ## gradebot
-run the server, then run `./gradebot project2` from the same folder so it can find the db file.
+gradebot.exe project-2 --run "python main.py" --port 8080 --code-dir . --database totally_not_my_privateKeys.db
+
+screenshots of gradebot and the test coverage are in this repo.
