@@ -1,4 +1,4 @@
-# jwks server project 2
+# jwks server project 2 - Manan Puri 
 
 a jwks server in python. it saves the rsa private keys in a sqlite database
 instead of keeping them in memory.
